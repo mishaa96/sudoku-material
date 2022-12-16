@@ -1,0 +1,31 @@
+<div style="display: flex;">
+    <mat-card style="flex: 0 1 auto;">
+        <mat-card-title>
+            Menu
+        </mat-card-title>
+        <mat-card-content>
+            <mat-action-list>
+                <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            New Game
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list #modes [multiple]="false" (click)="mode($event)">
+                        <mat-list-option>Easy</mat-list-option>
+                        <mat-list-option>Medium</mat-list-option>
+                        <mat-list-option>Hard</mat-list-option>
+                    </mat-selection-list>
+                </mat-expansion-panel>
+                <button *ngIf="continue" mat-list-item color="primary" (click)="getPrev()">Continue Game</button>
+            </mat-action-list>
+        </mat-card-content>
+    </mat-card>
+    <mat-card style="flex: 1 1 auto;">
+        <mat-grid-list cols="9"  *ngFor="let row of arr; index as i" rowHeight="2:1" [gutterSize]="'2px'" class="grid-list">
+            <mat-grid-tile *ngFor="let cell of row; index as j" [ngClass]="{'highlight': highlightCell(i.toString()+j.toString())}" style="border: 1px solid lightgrey;">
+                <input type="text" (keydown.backspace)="backspaceEvent($event)" (keypress)="verifyCell($event)" [value]="cell !=0 ? cell : ''" id="{{i}}{{j}}" [disabled]="cell != 0" maxlength="1">
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+</div>
